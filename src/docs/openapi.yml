@@ -3,8 +3,12 @@ info:
   title: Auth REST API
   description: OpenAPI (Swagger) Demo API
   version: '1.0'
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://localhost:3000/api/v1
+  - url: https:/test/api/v1
+    description: Local development server
 components:
   securitySchemes:
     bearerAuth:
@@ -14,7 +18,10 @@ components:
 paths:
   /auth/register:
     post:
+      summary: Register a user
       description: Registers a new user on the server
+      operationId: register
+      security: []
       requestBody:
         required: true
         content:
@@ -63,7 +70,10 @@ paths:
                     type: string
   /auth/verify-otp:
     post:
+      summary: Verify an email using OTP
       description: Verifies a user's email using a 6 digit OTP
+      operationId: verifyOtp
+      security: []
       requestBody:
         required: true
         content:
@@ -107,7 +117,10 @@ paths:
                     type: string
   /auth/login:
     post:
+      summary: Log in a user
       description: Logs in a registered user
+      operationId: loginUser
+      security: []
       requestBody:
         required: true
         content:
@@ -162,7 +175,9 @@ paths:
                     type: string
   /auth/logout:
     post:
+      summary: Logs out a user
       description: Logs out a user
+      operationId: logout
       security:
         - bearerAuth: []
       responses:
@@ -186,7 +201,9 @@ paths:
                     type: string
   /user/profile:
     get:
+      summary: Fetches a user's a profile
       description: Fetches a user's profile
+      operationId: getUserProfile
       security:
         - bearerAuth: []
       responses:
