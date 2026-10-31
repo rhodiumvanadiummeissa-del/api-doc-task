@@ -1,0 +1,137 @@
+openapi: '3.0.3'
+info:
+  title: Auth REST API
+  description: OpenAPI (Swagger) Demo API
+  version: '1.0'
+servers:
+  - url: https://localhost:3000/api/v1
+paths:
+  /auth/register:
+    post:
+      description: Registers a new user on the server
+      responses:
+        '201':
+          description: 'Successfully registers a user and returns their id'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                  userId:
+                    type: string
+                    description: The id of the newly created user
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /auth/verify-otp:
+    post:
+      description: Verifies a user's email using a 6 digit OTP
+      responses:
+        '200':
+          description: 'Successfully verifies an email'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /auth/login:
+    post:
+      description: Logs in a registered user
+      responses:
+        '200':
+          description: 'Successfully logged in a user'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                  token:
+                    type: string
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Email not verified
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /auth/logout:
+    post:
+      description: Logs out a user
+      responses:
+        '200':
+          description: Successfully logs out a user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+        '400':
+          description: Token is missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
