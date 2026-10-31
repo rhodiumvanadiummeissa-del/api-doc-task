@@ -9,6 +9,21 @@ paths:
   /auth/register:
     post:
       description: Registers a new user on the server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
       responses:
         '201':
           description: 'Successfully registers a user and returns their id'
@@ -43,6 +58,19 @@ paths:
   /auth/verify-otp:
     post:
       description: Verifies a user's email using a 6 digit OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - userId
+                - code
+              properties:
+                userId:
+                  type: string
+                code:
+                  type: string
       responses:
         '200':
           description: 'Successfully verifies an email'
@@ -74,6 +102,19 @@ paths:
   /auth/login:
     post:
       description: Logs in a registered user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
       responses:
         '200':
           description: 'Successfully logged in a user'
@@ -135,3 +176,58 @@ paths:
                 properties:
                   error:
                     type: string
+  /user/profile:
+    get:
+      description: Fetches a user's profile
+      responses:
+        '200':
+          description: Successfully returned a user's profile
+          content:
+            application/json:
+              schema:
+                required:
+                  - id
+                  - email
+                  - isVerified
+                  - createdAt
+                properties:
+                  id: 
+                    type: string
+                  email:
+                    type: string
+                  isVerified:
+                    type: boolean
+                  createdAt:
+                    type: string
+                    format: date-time
+        '401':
+          description: Token or userId is missing
+          content:
+            application/json:
+              schema:
+                required:
+                  - id
+                  - email
+                  - isVerified
+                  - createdAt
+                properties:
+                  id: 
+                    type: string
+                  email:
+                    type: string
+                  isVerified:
+                    type: boolean
+                  createdAt:
+                    type: string
+                    format: date-time
+        '404':
+          description: User profile not found
+          content:
+            application/json:
+              schema:
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                  
