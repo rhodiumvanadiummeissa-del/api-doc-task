@@ -18,9 +18,9 @@ export async function registerController(req: Request, res: Response) {
   const hashedPassword = await bcrypt.hash(password, 10); 
   const newUser = await User.create({ email, password: hashedPassword }); 
 
-  // Generate 6-digit OTP code[cite: 1]
+  // Generate 6-digit OTP code
   const otpCode = Math.floor(100000 + Math.random() * 900000).toString(); 
-  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes[cite: 1]
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
   await Otp.create({ userId: newUser.id, code: otpCode, expiresAt }); 
   await sendOtpEmail(email, otpCode); 
