@@ -2,7 +2,6 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
 import { authRateLimiter } from './middleware/rateLimiter';
 import { errorHandler } from './middleware/errorHandler';
 
@@ -15,7 +14,6 @@ app.use(express.json());
 
 // Mounted Routers
 app.use('/api/v1/auth', authRateLimiter, authRoutes);
-app.use('/api/v1/user', userRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
